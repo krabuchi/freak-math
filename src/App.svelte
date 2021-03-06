@@ -32,10 +32,10 @@
         count = solArr[Math.floor(Math.random() * solArr.length)];
     };
 
-    // var inter = window.setInterval(() => {
-    //     time -= 1;
-    //     checkTime();
-    // }, 1000);
+    var inter = window.setInterval(() => {
+        time -= 1;
+        checkTime();
+    }, 1000);
 
     const checkTime = () => {
         if (time < 1 && fail == false) {
