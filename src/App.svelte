@@ -173,7 +173,9 @@
         <p>{count}</p>
         <div>
             <button on:click={handleClick} value="correct">Correct</button>
-            <button on:click={handleClick} value="incorrect">Incorrect</button>
+            <button on:click={handleClick} id="incorrect" value="incorrect"
+                >Incorrect</button
+            >
         </div>
     </section>
 {/if}
@@ -199,6 +201,7 @@
         background-image: linear-gradient(to left, #9effdf, #53ffc6);
         padding: 1em;
         box-shadow: 1px 3px 3px rgba(25, 243, 25, 0.5);
+        color: #111;
     }
 
     h2 {
@@ -250,14 +253,25 @@
         bottom: 75px;
     }
 
-    .reset-btn,
     button {
         text-align: center;
         width: 40%;
         height: 55px;
         border: none;
         border-radius: 5px;
-        box-shadow: 2px 2px 3px rgb(173, 173, 255);
+        box-shadow: 2px 2px 3px rgb(57, 255, 163);
+        background-image: linear-gradient(to left, #9effdf, #16fcaf);
+        font-weight: 600;
+        font-size: 1.2em;
+    }
+    .reset-btn {
+        box-shadow: 2px 2px 3px #f2ff39;
+        background-image: linear-gradient(to left, #edff9e, #fff45d);
+    }
+
+    button#incorrect {
+        background-image: linear-gradient(to left, #ff9ba0, #ff0a2b);
+        box-shadow: 2px 2px 3px #ff7a71;
     }
 
     @media (min-width: 640px) {
