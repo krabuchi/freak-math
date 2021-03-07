@@ -1,4 +1,28 @@
 <script>
+    window.digitalData = {
+        pages: {
+            pageInfo: {
+                pageName: "Home Page",
+            },
+            attributes: {
+                score: 0,
+            },
+        },
+    };
+
+    const local = window.sessionStorage;
+    const checkId = () => {
+        var newID = Math.floor(Math.random() * 10000);
+        var existID = JSON.parse(local.getItem("id"));
+        if (existID) {
+            return true;
+        } else {
+            existID = JSON.stringify(newID);
+            local.setItem("id", existID);
+            return false;
+        }
+    };
+
     let count = 0;
     let firstNumber = 0;
     let secondNumber = 0;
@@ -39,7 +63,7 @@
 
     const checkTime = () => {
         if (time < 1 && fail == false) {
-            clearInterval(inter);
+            window.clearInterval(inter);
             fail = true;
             failMessage();
         }
@@ -48,6 +72,7 @@
     //Check on correct btn click if display solution matches real solution
     const checkSolution = () => {
         if (count == solution) {
+            console.log(window.digitalData);
             createRandomNumbers();
             score += 1;
             time = 3;
@@ -60,6 +85,7 @@
     //Check on incorrect btn click if display solution does not match real solution
     const checkNotSolution = () => {
         if (count !== solution) {
+            console.log(window.digitalData);
             createRandomNumbers();
             score += 1;
             time = 3;
@@ -70,13 +96,8 @@
     };
 
     const reset = () => {
-        createRandomNumbers();
-        time = 3;
-        inter = window.setInterval(() => {
-            time -= 1;
-            checkTime();
-        }, 1000);
-        fail = false;
+        window.clearInterval(inter);
+        play();
     };
 
     //If wrong btn click display Fail Message
@@ -89,6 +110,10 @@
             "Disappointment",
             "Practice Hard",
         ];
+
+        window.digitalData.pages.attributes = {
+            score: score,
+        };
 
         displayFail = failArr[Math.floor(Math.random() * failArr.length)];
     };
@@ -106,11 +131,24 @@
             case "reset":
                 reset();
                 break;
+            case "play":
+                play();
+                break;
             default:
                 console.log("Error");
         }
     };
-    createRandomNumbers();
+
+    const play = () => {
+        createRandomNumbers();
+        time = 3;
+        inter = window.setInterval(() => {
+            time -= 1;
+            return checkTime();
+        }, 1000);
+        fail = false;
+        score = 0;
+    };
 </script>
 
 <section class="timer">
@@ -158,8 +196,9 @@
     section.timer {
         display: flex;
         justify-content: space-between;
-        background: rgb(173, 173, 255);
+        background-image: linear-gradient(to left, #9effdf, #53ffc6);
         padding: 1em;
+        box-shadow: 1px 3px 3px rgba(25, 243, 25, 0.5);
     }
 
     h2 {
